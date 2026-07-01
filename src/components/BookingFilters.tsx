@@ -114,4 +114,4 @@ export const BookingFilters: React.FC<BookingFiltersProps> = ({filters, setFilte
             </div>
         </div>
     );
-}ж
+};
