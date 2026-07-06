@@ -14,7 +14,7 @@ export const Dashboard: React.FC = () => {
     const navigate = useNavigate();
     const userCtx = useContext(UserContext);
     if (!userCtx) throw new Error('UserContext не найден');
-    const {user, refundHours} = userCtx;
+    const {user} = userCtx;
     const [upcoming] = useState<BookingRecord[]>(() => {
         const saved: BookingRecord[] = JSON.parse(localStorage.getItem('user_booking') || '[]');
         return saved.filter(b => b.status === 'Confirmed');
