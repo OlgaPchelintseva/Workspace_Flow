@@ -6,29 +6,22 @@ export function useFetch<T>(fetchFn: () => T[], dependencies: React.DependencyLi
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        let isMounted = true;
+        const timer = setTimeout(() => {
 
-        const loadData = async () => {
             try {
                 const result = fetchFn();
-                if (isMounted){
                     setData(result);
                     setLoading(false);
-                }
+                    setError(null);
             }
             catch {
-                if (isMounted){
                     setError('Не удалось загрузить данные');
                     setLoading(false);
-                }
             }
-        };
+        }, 800);
 
-        loadData();
+        return () => clearTimeout(timer);
+    }, [fetchFn, dependencies]);
 
-        return () => {
-            isMounted = false;
-        };
-    }, [fetchFn, ...dependencies]);
     return { data, loading, error };
 };
